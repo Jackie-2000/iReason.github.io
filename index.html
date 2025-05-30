@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-    content="Multimodal Inconsistency Reasoning (MMIR): A New Benchmark for Multimodal Reasoning Models">
-  <meta name="keywords" content="MMIR, Multimodal Inconsistency">
+    content="Hidden in Plain Sight: Probing Implicit Reasoning in Multimodal Language Models">">
+  <meta name="keywords" content="iReason, Implicit Reasoning, Multimodal LLM">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Multimodal Inconsistency Reasoning (MMIR): A New Benchmark for Multimodal Reasoning Models</title>
 
@@ -45,12 +45,10 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Multimodal Inconsistency Reasoning (MMIR)</h1>
+          <h1 class="title is-1 publication-title">Hidden in Plain Sight: Probing Implicit Reasoning in Multimodal Language Models</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://Jackie-2000.github.io/">Qianqi Yan</a><sup style="color:#6fbf73;">1</sup>,</span>
-            <span class="author-block">
-              <a href="http://yfan.site/">Yue Fan</a><sup style="color:#6fbf73;">1</sup>,</span>
             <span class="author-block">
               Hongquan Li,
             </span>
@@ -80,7 +78,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2502.16033"
+                <a href="https://arxiv.org/abs/xxx"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -89,7 +87,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2502.16033"
+                <a href="https://arxiv.org/abs/xxx"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -99,7 +97,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/eric-ai-lab/MMIR"
+                <a href="https://github.com/eric-ai-lab/iReason"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -109,7 +107,7 @@
               </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a href="https://huggingface.co/datasets/rippleripple/MMIR"
+                <a href="https://huggingface.co/datasets/rippleripple/iReason"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <!-- <i class="far fa-images"></i> -->
@@ -137,14 +135,15 @@
           <div class="box m-5">
             <div class="content has-text-centered">
               <img src="static/images/teaser.png" alt="example" width="40%"/>
-              <p> An illustration of multimodal inconsistency reasoning on a webpage. An agent examines a webpage where the brand “IKEA AB” is mentioned, but other elements clearly refer to “Lorell.” Detecting this brand identity misattribution requires the ability to compare text fields across different sections of the page and reconcile them with accompanying images or context—an inherently multimodal reasoning task.
+              <p> 
+                Even when the instruction appears valid, it may silently conflict with the visual context. Implicit reasoning requires models to detect whats missing, ambiguous, contradictory, or infeasible—without being told.
               </p>
             </div>
           </div>
           <div class="box m-5">
             <div class="content has-text-centered">
               <img src="static/images/examples.png" alt="stats adversarial" width="84%"/>
-              <p> There are five inconsistency categories in the MMIR benchmark, posing diverse challenges.
+              <p> There are four categories under the implicit reasoning scenarios, posing diverse challenges.
               </p>
             </div>
           </div>
@@ -162,21 +161,33 @@
         <h2 class="title is-3">Introduction</h2>
         <div class="content has-text-justified">
           <p>
-            We introduce MMIR, the first benchmark for evaluating Multimodal Large Language Models (MLLMs) on detecting and reasoning about inconsistencies in layout-rich multimodal content. MMIR features 534 challenging samples across five reasoning-heavy inconsistency categories:
+            Multimodal Large Language Models (MLLMs) are increasingly deployed in open-ended, real-world environments. Real instructions often involve <b>missing objects, ambiguous references, contradictory facts, or infeasible tasks</b>—situations that require <b>implicit reasoning</b> beyond simple execution. Existing benchmarks mostly assume that the visual input and instruction are perfectly aligned, overlooking cases where flaws must be inferred from context. <b>This Paper:</b> Provides a systematic analysis of how current MLLMs handle implicit reasoning scenarios where the problem is “hidden in plain sight.”
           </p>
-          <ul>
-            <li><i>Factual Contradiction:</i> Direct conflict between two elements (text-text, text-image, or image-image) within the modified content.</li>
-            <li><i>Identity Misattribution:</i> Mislabeling of entities (objects, locations, brands etc.) that conflict with other elements.</li>
-            <li><i>Contextual Mismatch:</i> Tonal, thematic, or situational incompatibility between elements.</li>
-            <li><i>Quantitative Discrepancy:</i>  Numerical or statistical inconsistencies between elements.</li>
-            <li><i>Temporal/Spatial Incoherence:</i> Implied timelines, dates, or spatial relationships that are impossible or conflicting.</li>
-          </ul>
+          <li>
+            <b>We organize our analysis around three key research questions (RQs):</b>
+            <ul>
+              <li>
+                <b>RQ1:</b> How do MLLMs perform on implicit reasoning tasks?
+              </li>
+              <li>
+                <b>RQ2:</b> Do models recognize hidden issues internally but suppress them, or is failure due to lack of ability?
+              </li>
+              <li>
+                <b>RQ3:</b> Can simple inference-time interventions (e.g., clarifying questions) recover suppressed reasoning and improve trustworthiness?
+              </li>
+            </ul>
+          </li>
           <p>
-            We evaluate six state-of-the-art MLLMs, showing that models with dedicated multimodal reasoning capabilities, such as o1, substantially outperform their counterparts while open-source models remain particularly vulnerable to inconsistency errors.
+            We curate a diagnostic suite covering four real-world failure modes and evaluate six leading MLLMs, including o3 and GPT-4o, on 643 diverse samples. 
           </p>
-          <p>
-            Detailed error analyses further show that models excel in detecting inconsistencies confined to a single modality, particularly in text, but struggle with cross-modal conflicts and complex layouts. Probing experiments reveal that single-modality prompting, including Chain-of-Thought (CoT) and Set-of-Mark (SoM) methods, yields marginal gains, revealing a key bottleneck in cross-modal reasoning. Our findings highlight the need for advanced multimodal reasoning and point to future research on multimodal inconsistency.
-          </p> 
+          <li>
+            <b>Main Findings:</b>
+            <ul>
+              <li>Even advanced models frequently fail to surface hidden issues, despite possessing the necessary perceptual and reasoning skills.</li>
+              <li>Explicit prompting and clarifying question interventions can dramatically recover performance, revealing a gap between competence and compliance.</li>
+              <li>Our analysis highlights the need to address behavioral alignment in addition to model capability for trustworthy AI.</li>
+            </ul>
+          </li>
         </div>
       </div>
     </div>
