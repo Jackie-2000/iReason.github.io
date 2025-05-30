@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Multimodal Inconsistency Reasoning (MMIR): A New Benchmark for Multimodal Reasoning Models">
+  <meta name="keywords" content="MMIR, Multimodal Inconsistency">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multimodal Inconsistency Reasoning (MMIR): A New Benchmark for Multimodal Reasoning Models</title>
+
+  <link rel="icon" href="./static/images/mathvista.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+  <script src="./static/js/leaderboard_testmini.js"></script>  
+  <script src="./data/results/output_folders.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+
+  <script src="./visualizer/data/data_public.js" defer></script>
+</head>
+<body>
+
+<!-- Heading -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Multimodal Inconsistency Reasoning (MMIR)</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://Jackie-2000.github.io/">Qianqi Yan</a><sup style="color:#6fbf73;">1</sup>,</span>
+            <span class="author-block">
+              <a href="http://yfan.site/">Yue Fan</a><sup style="color:#6fbf73;">1</sup>,</span>
+            <span class="author-block">
+              Hongquan Li,
+            </span>
+            <span class="author-block">
+              Shan Jiang<sup style="color:#ed4b82">2</sup>,
+            </span>
+            <span class="author-block">
+              Yang Zhao<sup style="color:#ed4b82">2</sup>,
+            </span>
+            <span class="author-block">
+              Xinze Guan<sup style="color:#ed4b82">2</sup>,
+            </span>
+            <span class="author-block">
+              Ching-Chen Kuo<sup style="color:#ed4b82">2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://eric-xw.github.io/">Xin Eric Wang</a><sup style="color:#6fbf73;">1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#6fbf73;">1</sup>University of California, Santa Cruz,</span><br>
+            <span class="author-block"><sup style="color:#ed4b82">2</sup>eBay</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2502.16033"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2502.16033"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/eric-ai-lab/MMIR"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/rippleripple/MMIR"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser figures -->
+<section class="section">
+  <div class="container" style="margin-top: -150px; margin-bottom: -100px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/teaser.png" alt="example" width="40%"/>
+              <p> An illustration of multimodal inconsistency reasoning on a webpage. An agent examines a webpage where the brand “IKEA AB” is mentioned, but other elements clearly refer to “Lorell.” Detecting this brand identity misattribution requires the ability to compare text fields across different sections of the page and reconcile them with accompanying images or context—an inherently multimodal reasoning task.
+              </p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/examples.png" alt="stats adversarial" width="84%"/>
+              <p> There are five inconsistency categories in the MMIR benchmark, posing diverse challenges.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            We introduce MMIR, the first benchmark for evaluating Multimodal Large Language Models (MLLMs) on detecting and reasoning about inconsistencies in layout-rich multimodal content. MMIR features 534 challenging samples across five reasoning-heavy inconsistency categories:
+          </p>
+          <ul>
+            <li><i>Factual Contradiction:</i> Direct conflict between two elements (text-text, text-image, or image-image) within the modified content.</li>
+            <li><i>Identity Misattribution:</i> Mislabeling of entities (objects, locations, brands etc.) that conflict with other elements.</li>
+            <li><i>Contextual Mismatch:</i> Tonal, thematic, or situational incompatibility between elements.</li>
+            <li><i>Quantitative Discrepancy:</i>  Numerical or statistical inconsistencies between elements.</li>
+            <li><i>Temporal/Spatial Incoherence:</i> Implied timelines, dates, or spatial relationships that are impossible or conflicting.</li>
+          </ul>
+          <p>
+            We evaluate six state-of-the-art MLLMs, showing that models with dedicated multimodal reasoning capabilities, such as o1, substantially outperform their counterparts while open-source models remain particularly vulnerable to inconsistency errors.
+          </p>
+          <p>
+            Detailed error analyses further show that models excel in detecting inconsistencies confined to a single modality, particularly in text, but struggle with cross-modal conflicts and complex layouts. Probing experiments reveal that single-modality prompting, including Chain-of-Thought (CoT) and Set-of-Mark (SoM) methods, yields marginal gains, revealing a key bottleneck in cross-modal reasoning. Our findings highlight the need for advanced multimodal reasoning and point to future research on multimodal inconsistency.
+          </p> 
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<!-- DATASET SECTION -->
+
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista">MMIR Benchmark</h1>
+  </div>
+</section>        
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <!-- figures -->
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/stats.png" alt="Dataset Statistics" width="40%">
+            <p class="has-text-centered"><b>MMIR Statistics</b>. Breakdown of the dataset by artifact category and error type.</p>
+              </div>
+            </div>
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/data_filter.png" alt="data filtering" width="80%">
+                <p> MMIR Data filtering process.</p>
+              </div>
+            </div>
+          </div>
+
+          <p>
+            The MMIR benchmark was meticulously constructed through a four-stage curation pipeline to ensure high-quality, diverse, and challenging test cases. We began by collecting 521 real-world artifacts — including webpages, presentations, and posters — from trusted sources like VisualWebArena and Zenodo. These artifacts were parsed to extract structured metadata, including element types, content, and spatial layouts.
+          </p>
+          <p>
+            To simulate realistic errors, we used advanced multimodal models to propose 2,534 synthetic inconsistencies across five predefined categories. These proposals underwent automated validation to ensure technical feasibility and alignment with error definitions. Approved edits were then programmatically applied to artifacts using tools like Chrome DevTools (for webpages) and Python libraries (for presentations).
+          </p>
+          <p>
+            Finally, human experts rigorously reviewed the modified samples, filtering out unrealistic cases and retaining 534 validated entries that balance complexity and real-world relevance. The resulting dataset spans diverse artifact types and error categories, with carefully designed evaluation prompts for both open-ended and multiple-choice settings. 
+          </p>
+          <div class="column">
+          <h3 class="title is-4 mt-4">Key Features</h3>
+          <ul>
+            <li>534 carefully validated samples</li>
+            <li>Real-world artifacts: Webpages, Slides, Posters</li>
+            <li>Synthetic inconsistency injection</li>
+            <li>Multi-stage verification pipeline</li>
+          </ul>
+          </div>
+          <div class="column">
+            <h3 class="title is-4 mt-4">Evaluation Settings</h3>
+            <ul>
+              <li><i>Open-ended:</i> Models receive the artifact with a fixed prompt <i>Q<sub>open_ended</sub></i> and generate a free-form response that identifies the semantic mismatch.</li>
+              <li><i>Multiple-choice:</i> Models receive the artifact with a combined prompt <i>Q_<sub>MCQ</sub> = (Q<sub>open_ended</sub>, C<sub>i</sub>)</i>. Each candidate in C<sub>i</sub> is a textual description of an element. The model must select, from these options, the element(s) corresponding to the introduced inconsistency.</li>
+            </ul>
+          </div>
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/qualitative_example.png" alt="stats adversarial" width="84%"/>
+            <p> A Qualitative Example showing a test sample in MMIR tested under the two evaluation settings with ground-truth answer and responses of the six tested models.
+              </div>
+            </div>
+          </div>
+          <p>
+            You can download the dataset on <a href="https://huggingface.co/datasets/rippleripple/MMIR" target="_blank">Hugging Face Dataset</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista">Experiments and Analysis</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <div class="column">
+            Our comprehensive evaluation of six state-of-the-art multimodal models (including proprietary systems like <b>o1</b> and <b>GPT-4o</b>, and open-source models like <b>Qwen2.5-VL, LLaVA-NeXT, InternVL2.5</b> and <b>Phi-3.5-Vision</b>) reveals critical insights into multimodal inconsistency reasoning. Proprietary models significantly outperform open-source models, with o1 achieving over 50% accuracy overall—surpassing open-source models by more than 30%. While all models struggle with complex inconsistencies, proprietary systems show stronger alignment between visual and textual reasoning, particularly when provided with contextual cues.
+
+            <div class="content">
+              <p class="mt-3">
+                The accuracy of six MLLMs under the two evaluation settings. Proprietary models demonstrate higher performance as well as larger performance gain in the MCQ setting. While MCQ-style prompts boost GPT-4o's accuracy by ~15%, open-source models gain minimal benefits, highlighting fundamental reasoning gaps.
+              </p>
+            
+              <table class="js-sort-table" id="results">
+                <tr>
+                  <td colspan="2"> </td>
+                  <td style="text-align:right;">|</td>
+                  <td colspan="3" style="text-align:center;"><strong>Open-ended</strong></td>
+                  <td style="text-align:right;">|</td>
+                  <td colspan="4" style="text-align:center;"><strong>Multiple-choice</strong></td>
+                </tr>
+                <tr>
+                  <td class="js-sort-number"><strong>#</strong></td>
+                  <td class="js-sort-number"><strong>Model</strong></td>
+                  <td class="js-sort-number"><strong>Source</strong></td>
+                  <td class="js-sort-number"><strong>Web</strong></td>
+                  <td class="js-sort-number"><strong>Office</strong></td>
+                  <td class="js-sort-number"><strong>Poster</strong></td>
+                  <td class="js-sort-number"><strong>Overall</strong></td>
+                  <td class="js-sort-number"><strong>Web</strong></td>
+                  <td class="js-sort-number"><strong>Office</strong></td>
+                  <td class="js-sort-number"><strong>Poster</strong></td>
+                  <td class="js-sort-number"><strong>Overall</strong></td>
+                </tr>
+            
+                <!-- Proprietary Models -->
+                <tr><td colspan="11" style="background-color:#f0f0f0;"><em>Proprietary Models</em></td></tr>
+                <tr>
+                  <td>1</td>
+                  <td><b>o1 (1217)</b></td>
+                  <td><a href="https://openai.com/o1/" class="ext-link" style="font-size: 16px;">Link</a></td>
+                  <td>47.91</td>
+                  <td>59.19</td>
+                  <td>38.73</td>
+                  <td>51.40</td>
+                  <td>47.91</td>
+                  <td>58.52</td>
+                  <td>46.47</td>
+                  <td>52.15</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><b>GPT-4o (1120)</b></td>
+                  <td><a href="https://openai.com/index/hello-gpt-4o/" class="ext-link" style="font-size: 16px;">Link</a></td>
+                  <td>25.00</td>
+                  <td>42.60</td>
+                  <td>30.98</td>
+                  <td>33.14</td>
+                  <td>37.29</td>
+                  <td>58.96</td>
+                  <td>47.88</td>
+                  <td>47.75</td>
+                </tr>
+            
+                <!-- Open-sourced Models -->
+                <tr><td colspan="11" style="background-color:#f0f0f0;"><em>Open-sourced Models</em></td></tr>
+                <tr>
+                  <td>3</td>
+                  <td><b>Qwen2.5-VL-7B</b></td>
+                  <td><a href="https://github.com/QwenLM/Qwen2.5-VL" class="ext-link" style="font-size: 16px;">Link</a></td>
+                  <td>8.54</td>
+                  <td>29.14</td>
+                  <td>11.97</td>
+                  <td>17.60</td>
+                  <td>14.37</td>
+                  <td>33.18</td>
+                  <td>16.90</td>
+                  <td>22.56</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td><b>LLaVA-NeXT-7B</b></td>
+                  <td><a href="https://github.com/LLaVA-VL/LLaVA-NeXT" class="ext-link" style="font-size: 16px;">Link</a></td>
+                  <td>10.20</td>
+                  <td>21.97</td>
+                  <td>7.04</td>
+                  <td>14.70</td>
+                  <td>11.45</td>
+                  <td>25.33</td>
+                  <td>5.63</td>
+                  <td>16.47</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td><b>InternVL2.5-8B</b></td>
+                  <td><a href="https://github.com/OpenGVLab/InternVL" class="ext-link" style="font-size: 16px;">Link</a></td>
+                  <td>7.70</td>
+                  <td>24.21</td>
+                  <td>4.92</td>
+                  <td>14.23</td>
+                  <td>9.37</td>
+                  <td>23.54</td>
+                  <td>11.97</td>
+                  <td>15.63</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td><b>Phi-3.5-Vision-4B</b></td>
+                  <td><a href="https://techcommunity.microsoft.com/blog/azure-ai-services-blog/discover-the-new-multi-lingual-high-quality-phi-3-5-slms/4225280" class="ext-link" style="font-size: 16px;">Link</a></td>
+                  <td>6.87</td>
+                  <td>24.43</td>
+                  <td>7.04</td>
+                  <td>14.23</td>
+                  <td>1.66</td>
+                  <td>8.52</td>
+                  <td>0.00</td>
+                  <td>4.30</td>
+                </tr>
+              </table>
+            
+              <div>
+                <p>🚨 To submit your results to the leaderboard, please send to <a href="mailto:qyan79@ucsc.edu">this email</a> with your result JSON files.</p>
+                <p>🚨 For more submission details, please refer to <a href="https://github.com/eric-ai-lab/MMIR">this link.</a></p>
+              </div>
+              
+              <div>
+              <h3 class="title is-4 mt-4">Fine-grained error analysis</h3>
+              <ul>
+                <li><b>Performance Gap:</b> Proprietary models excel at detecting <i>factual contradictions</i> and <i>identity mismatches</i>, but even top models like GPT-4o show limitations in resolving <i>temporal/spatial incoherence</i>.</li>
+                <li><b>Modality Matters:</b> Models handle text-text inconsistencies best but falter with image-image comparisons, exposing weaknesses in visual reasoning.</li>
+                <li><b>Layout Complexity:</b> Performance drops sharply as artifacts become visually dense—models lose up to 40% accuracy on cluttered layouts compared to simple ones.</li>
+              </ul>
+              </div>
+
+              <!-- figures -->
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="box m-5">
+                  <div class="content has-text-centered">
+                    <img src="static/images/ablation_error.png" alt="grade-lv" width="80%"/>
+                    <p>
+                      Fine-grained analysis of model performance across Inconsistency Categories and Modalities.
+                    </p>
+                  </div>
+                </div>
+                <div class="box m-5">
+                  <div class="content has-text-centered">
+                    <img src="static/images/ablation_count.png" alt="grade-lv" width="60%"/>
+                    <p>
+                      Model performance on layout complexity.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <h3 class="title is-4 mt-4">Prompting Strategies Analysis</h3>
+              To enhance multimodal inconsistency reasoning, we tested three prompting approaches and has the following observations:
+              <ul>
+                <li><b>Chain-of-Thought (CoT):</b> Explicit textual reasoning steps provided minimal benefits, sometimes reducing accuracy, especially for open-source models.</li>
+                <li><b>Set-of-Mark (SoM):</b> Visual bounding boxes improved GPT-4o’s performance (+5%) but confused other models, often degrading results.</li>
+                <li><b>Multimodal Interleaved CoT (MM-CoT):</b> Our novel two-stage method combined textual reasoning with iterative visual refinement.</li>
+              </ul>
+              
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="box m-5">
+                  <div class="content has-text-centered">
+                    <img src="static/images/probing.png" alt="probing" width="60%"/>
+                    <p> <b>Probing results of different prompting methods.</b> Performance of each prompting method is directly compared with the vanilla setting. Gains are in blue and drops are in red.
+                  </div>
+                </div>
+              </div>
+              <p>
+                MM-CoT outperformed all other methods, boosting GPT-4o's accuracy by 4.4% and showing modest gains for open-source models.
+                Proprietary models benefited most from iterative cross-modal integration, while isolated prompts (CoT/SoM) proved ineffective.
+                Visual annotations only helped when guided by initial textual reasoning, highlighting the need for tightly coupled multimodal interaction.
+              </p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <pre><code>
+      @misc{yan2025multimodalinconsistencyreasoningmmir,
+        title={Multimodal Inconsistency Reasoning (MMIR): A New Benchmark for Multimodal Reasoning Models}, 
+        author={Qianqi Yan and Yue Fan and Hongquan Li and Shan Jiang and Yang Zhao and Xinze Guan and Ching-Chen Kuo and Xin Eric Wang},
+        year={2025},
+        eprint={2502.16033},
+        archivePrefix={arXiv},
+        primaryClass={cs.AI},
+        url={https://arxiv.org/abs/2502.16033}, 
+  }
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://nerfies.github.io/">Nerfies</a>, and <a href="https://mathvista.github.io/">MathVista</a>licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>
