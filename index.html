@@ -6,7 +6,7 @@
     content="Hidden in Plain Sight: Probing Implicit Reasoning in Multimodal Language Models">">
   <meta name="keywords" content="iReason, Implicit Reasoning, Multimodal LLM">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Multimodal Inconsistency Reasoning (MMIR): A New Benchmark for Multimodal Reasoning Models</title>
+  <title>Hidden in Plain Sight: Probing Implicit Reasoning in Multimodal Language Models</title>
 
   <link rel="icon" href="./static/images/mathvista.png">
 
@@ -134,7 +134,7 @@
         <!-- <div id="results-carousel" class="carousel results-carousel"> -->
           <!-- <div class="box m-5"> -->
             <!-- <div class="content has-text-centered"> -->
-              <img src="static/images/teaser.png" alt="teaser" width="80%"/>
+              <img src="static/images/teaser.png" alt="teaser" width="50%"/>
               <p> 
                 Even when the instruction appears valid, it may silently conflict with the visual context. Implicit reasoning requires models to detect whats missing, ambiguous, contradictory, or infeasible—without being told.
               </p>
@@ -152,7 +152,6 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Introduction</h2>
         <div class="content has-text-justified">
-          
           <p>
             Multimodal Large Language Models (MLLMs) are increasingly deployed in open-ended, real-world environments. Real instructions often involve <b>missing objects, ambiguous references, contradictory facts, or infeasible tasks</b>—situations that require <b>implicit reasoning</b> beyond simple execution. Existing benchmarks mostly assume that the visual input and instruction are perfectly aligned, overlooking cases where flaws must be inferred from context. This paper provides a systematic analysis of how current MLLMs handle implicit reasoning scenarios where the problem is “hidden in plain sight.”
           </p>
@@ -259,32 +258,56 @@
   </div>
 </section>
 
+
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista">RQ2: Do Models Know More Than They Say?</h1>
+  </div>
+</section>  
 <!-- RQ2: Do Models Know More Than They Say? -->
 <section class="section">
   <div class="container" style="margin-bottom: 2vh;">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">RQ2: Do Models Know More Than They Say?</h2>
+        <h2 class="title is-3">When models fail at implicit reasoning, is it due to a lack of capability—or do they recognize issues internally but fail to express them?</h2>
         <div class="content has-text-justified">
           <ul>
-            <li>
-              <b>Question:</b> When models fail at implicit reasoning, is it due to a lack of capability—or do they recognize issues internally but fail to express them?
-            </li>
             <li>
               <b>Experiments:</b>
               <ul>
                 <li>
                   <b>Explicit Prompts:</b> We ask direct yes/no questions (e.g., "Is the referenced object present?") for the same samples.
                 </li>
+                <!-- figures -->
+                <div id="results-carousel" class="carousel results-carousel">
+                  <div class="box m-5">
+                    <div class="content has-text-centered">
+                      <img src="static/images/explicit.png" alt="explicit" width="50%"/>
+                      <p>
+                        <b>Model accuracy on explicit prompts (%).</b> The best result in each question category is in-bold, and the second best is underlined.
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 <li>
                   <b>Chain-of-Thought (CoT):</b> We prompt models to "think step by step," then separately score the internal reasoning trace and final answer.
                 </li>
+                <div id="results-carousel" class="carousel results-carousel">
+                  <div class="box m-5">
+                    <div class="content has-text-centered">
+                      <img src="static/images/cot.png" alt="cot" width="50%"/>
+                      <p>
+                        <b>Answer-Reason accuracy gaps (%).</b> Negative values (red) indicate the model reasoned correctly but omitted it in the final answer.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </ul>
             </li>
             <li>
               <b>Key Findings:</b>
               <ul>
-                <li>With explicit prompts, top models achieve <b>83%+</b> accuracy—demonstrating the necessary skills exist.</li>
+                <li>With explicit prompts, top models achieve <b>83%+</b> accuracy—demonstrating the underlying skills exist.</li>
                 <li>CoT traces show that proprietary models (o3, GPT-4o) often recognize flaws internally, but omit them in their final answer—indicating suppression due to alignment or obedience pressure.</li>
                 <li>Open-source models generally fail both internally and externally, showing true reasoning limitations.</li>
               </ul>
@@ -299,26 +322,86 @@
   </div>
 </section>
 
+
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista">RQ3: Can Inference-Time Interventions Recover Reasoning?</h1>
+  </div>
+</section>  
 <!-- RQ3: Can Inference-Time Interventions Recover Reasoning? -->
 <section class="section">
   <div class="container" style="margin-bottom: 2vh;">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">RQ3: Can Inference-Time Interventions Recover Reasoning?</h2>
+        <h2 class="title is-3">If the models already “know” the issue, can we unlock their suppressed reasoning with simple interventions—without retraining?</h2>
         <div class="content has-text-justified">
           <ul>
-            <li>
-              <b>Question:</b> If the models already “know” the issue, can we unlock their suppressed reasoning with simple interventions—without retraining?
-            </li>
             <li>
               <b>Interventions Tested:</b>
               <ul>
                 <li>
-                  <b>System Persona Prompting:</b> Adding a prompt that encourages the model to prioritize caution, honesty, and factual correctness over obedience.
+                  <b>System Persona Prompting:</b> You are a cautious and thoughtful assistant. Your goal is to ensure that the user receives accurate and safe information, even if this means questioning the user’s request or pointing out potential issues. Always prioritize correctness and helpfulness over compliance.
                 </li>
+                <div style="
+                  border: 2px solid #aaa; 
+                  border-radius: 8px; 
+                  overflow: hidden; 
+                  max-width: 700px; 
+                  margin: 2rem auto; 
+                  font-family: serif;
+                ">
+                  <div style="
+                    background-color: #888; 
+                    color: white; 
+                    font-weight: bold; 
+                    padding: 0.5rem 1rem; 
+                    font-size: 1.1rem;
+                  ">
+                    System Prompt Personalization Prompt
+                  </div>
+                  <div style="
+                    background-color: #f8f8f8; 
+                    padding: 1rem; 
+                    font-size: 1rem; 
+                    line-height: 1.6;
+                  ">
+                    You are a cautious and thoughtful assistant. Your goal is to ensure that the user receives accurate and safe information—even if this means questioning the user’s request or pointing out potential issues. Always prioritize correctness and helpfulness over compliance.
+                  </div>
+                </div>
                 <li>
                   <b>Interactive Clarification:</b> Allowing—or requiring—the model to ask the user a clarifying question before answering.
                 </li>
+                <div style="
+                border: 2px solid #aaa; 
+                border-radius: 8px; 
+                overflow: hidden; 
+                max-width: 700px; 
+                margin: 2rem auto; 
+                font-family: serif;
+              ">
+                <div style="
+                  background-color: #888; 
+                  color: white; 
+                  font-weight: bold; 
+                  padding: 0.5rem 1rem; 
+                  font-size: 1.1rem;
+                ">
+                  Free Interactive Clarification (IC-Free)
+                </div>
+                <div style="
+                  background-color: #f8f8f8; 
+                  padding: 1rem; 
+                  font-size: 1rem; 
+                  line-height: 1.6;
+                ">
+                  If you need more information to complete the task accurately, you may ask the user a clarifying question.  
+                  If so, output your question inside <question>...</question> tags.
+                  
+                  If you feel confident that you have enough information, provide your final answer directly inside <answer>...</answer> tags.
+                  
+                  You may only choose one action—either output a <question> or an <answer>, but not both.
+                </div>
+              </div>
               </ul>
             </li>
             <li>
@@ -334,82 +417,6 @@
             </li>
           </ul>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-          <div class="column">
-            Our comprehensive evaluation of six state-of-the-art multimodal models (including proprietary systems like <b>o1</b> and <b>GPT-4o</b>, and open-source models like <b>Qwen2.5-VL, LLaVA-NeXT, InternVL2.5</b> and <b>Phi-3.5-Vision</b>) reveals critical insights into multimodal inconsistency reasoning. Proprietary models significantly outperform open-source models, with o1 achieving over 50% accuracy overall—surpassing open-source models by more than 30%. While all models struggle with complex inconsistencies, proprietary systems show stronger alignment between visual and textual reasoning, particularly when provided with contextual cues.
-
-            <div class="content">
-              <p class="mt-3">
-                The accuracy of six MLLMs under the two evaluation settings. Proprietary models demonstrate higher performance as well as larger performance gain in the MCQ setting. While MCQ-style prompts boost GPT-4o's accuracy by ~15%, open-source models gain minimal benefits, highlighting fundamental reasoning gaps.
-              </p>
-            
-              <div>
-                <p>🚨 To submit your results to the leaderboard, please send to <a href="mailto:qyan79@ucsc.edu">this email</a> with your result JSON files.</p>
-                <p>🚨 For more submission details, please refer to <a href="https://github.com/eric-ai-lab/MMIR">this link.</a></p>
-              </div>
-              
-              <div>
-              <h3 class="title is-4 mt-4">Fine-grained error analysis</h3>
-              <ul>
-                <li><b>Performance Gap:</b> Proprietary models excel at detecting <i>factual contradictions</i> and <i>identity mismatches</i>, but even top models like GPT-4o show limitations in resolving <i>temporal/spatial incoherence</i>.</li>
-                <li><b>Modality Matters:</b> Models handle text-text inconsistencies best but falter with image-image comparisons, exposing weaknesses in visual reasoning.</li>
-                <li><b>Layout Complexity:</b> Performance drops sharply as artifacts become visually dense—models lose up to 40% accuracy on cluttered layouts compared to simple ones.</li>
-              </ul>
-              </div>
-
-              <!-- figures -->
-              <div id="results-carousel" class="carousel results-carousel">
-                <div class="box m-5">
-                  <div class="content has-text-centered">
-                    <img src="static/images/ablation_error.png" alt="grade-lv" width="80%"/>
-                    <p>
-                      Fine-grained analysis of model performance across Inconsistency Categories and Modalities.
-                    </p>
-                  </div>
-                </div>
-                <div class="box m-5">
-                  <div class="content has-text-centered">
-                    <img src="static/images/ablation_count.png" alt="grade-lv" width="60%"/>
-                    <p>
-                      Model performance on layout complexity.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <h3 class="title is-4 mt-4">Prompting Strategies Analysis</h3>
-              To enhance multimodal inconsistency reasoning, we tested three prompting approaches and has the following observations:
-              <ul>
-                <li><b>Chain-of-Thought (CoT):</b> Explicit textual reasoning steps provided minimal benefits, sometimes reducing accuracy, especially for open-source models.</li>
-                <li><b>Set-of-Mark (SoM):</b> Visual bounding boxes improved GPT-4o’s performance (+5%) but confused other models, often degrading results.</li>
-                <li><b>Multimodal Interleaved CoT (MM-CoT):</b> Our novel two-stage method combined textual reasoning with iterative visual refinement.</li>
-              </ul>
-              
-              <div id="results-carousel" class="carousel results-carousel">
-                <div class="box m-5">
-                  <div class="content has-text-centered">
-                    <img src="static/images/probing.png" alt="probing" width="60%"/>
-                    <p> <b>Probing results of different prompting methods.</b> Performance of each prompting method is directly compared with the vanilla setting. Gains are in blue and drops are in red.
-                  </div>
-                </div>
-              </div>
-              <p>
-                MM-CoT outperformed all other methods, boosting GPT-4o's accuracy by 4.4% and showing modest gains for open-source models.
-                Proprietary models benefited most from iterative cross-modal integration, while isolated prompts (CoT/SoM) proved ineffective.
-                Visual annotations only helped when guided by initial textual reasoning, highlighting the need for tightly coupled multimodal interaction.
-              </p>
-            </div>
-          </div>
       </div>
     </div>
   </div>
