@@ -140,6 +140,13 @@
               </p>
             </div>
           </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/examples.png" alt="examples" width="50%"/>
+              <p> There are four categories under the implicit reasoning scenarios, posing diverse challenges.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -173,18 +180,15 @@
           <p>
             We curate a diagnostic suite covering four real-world failure modes and evaluate six leading MLLMs, including o3 and GPT-4o, on 643 diverse samples. 
           </p>
-          <!-- figures -->
           <div id="results-carousel" class="carousel results-carousel">
             <div class="box m-5">
-              <div class="box m-5">
-                <div class="content has-text-centered">
-                  <img src="static/images/examples.png" alt="examples" width="50%"/>
-                  <p> There are four categories under the implicit reasoning scenarios, posing diverse challenges.
-                  </p>
-                </div>
+              <div class="content has-text-centered">
+                <img src="static/images/stats.png" alt="probing" width="60%"/>
+                <p> iReason Statistics. Breakdown of the testbed by category. Please see paper Appendix for detailed data curation.
               </div>
             </div>
           </div>
+         
           <b>Main Findings:</b>
           <ul>
             <li>Even advanced models frequently fail to surface hidden issues, despite possessing the necessary perceptual and reasoning skills.</li>
@@ -197,7 +201,6 @@
     <!--/ Abstract. -->
 </div>
 </section>
-
 
 <!-- RQ1: How do MLLMs Perform on Implicit Reasoning Tasks? -->
 <section class="section">
@@ -219,14 +222,6 @@
             <li>
               <b>Evaluation:</b> Each model receives a single image and task string, with no extra hints. The model must return a free-form answer; an LLM judge determines correctness.
             </li>
-            <div id="results-carousel" class="carousel results-carousel">
-              <div class="content has-text-centered">
-                <img src="static/images/main.png" alt="grade-lv" width="80%"/>
-                <p>
-                  The accuracy (%) of six MLLMs under the four categories. Proprietary models demonstrate higher performance. The best result in each question category is in-bold, and the second best is underlined.
-                </p>
-              </div>
-            </div>
             <li>
               <b>Key Findings:</b>
               <ul>
@@ -239,6 +234,17 @@
               <b>Interpretation:</b> Current MLLMs remain vulnerable to hidden, real-world errors that require reading between the lines rather than just task execution.
             </li>
           </ul>
+          <!-- figures -->
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/main.png" alt="grade-lv" width="50%"/>
+                <p>
+                  The accuracy (%) of six MLLMs under the four categories. Proprietary models demonstrate higher performance. The best result in each question category is in-bold, and the second best is underlined.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
