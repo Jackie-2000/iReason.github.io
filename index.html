@@ -134,16 +134,9 @@
         <div id="results-carousel" class="carousel results-carousel">
           <div class="box m-5">
             <div class="content has-text-centered">
-              <img src="static/images/teaser.png" alt="example" width="100%"/>
+              <img src="static/images/teaser.png" alt="teaser" width="100%"/>
               <p> 
                 Even when the instruction appears valid, it may silently conflict with the visual context. Implicit reasoning requires models to detect whats missing, ambiguous, contradictory, or infeasible—without being told.
-              </p>
-            </div>
-          </div>
-          <div class="box m-5">
-            <div class="content has-text-centered">
-              <img src="static/images/examples.png" alt="stats adversarial" width="50%"/>
-              <p> There are four categories under the implicit reasoning scenarios, posing diverse challenges.
               </p>
             </div>
           </div>
@@ -180,7 +173,18 @@
           <p>
             We curate a diagnostic suite covering four real-world failure modes and evaluate six leading MLLMs, including o3 and GPT-4o, on 643 diverse samples. 
           </p>
-         
+          <!-- figures -->
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="box m-5">
+              <div class="box m-5">
+                <div class="content has-text-centered">
+                  <img src="static/images/examples.png" alt="examples" width="50%"/>
+                  <p> There are four categories under the implicit reasoning scenarios, posing diverse challenges.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
           <b>Main Findings:</b>
           <ul>
             <li>Even advanced models frequently fail to surface hidden issues, despite possessing the necessary perceptual and reasoning skills.</li>
@@ -193,6 +197,7 @@
     <!--/ Abstract. -->
 </div>
 </section>
+
 
 <!-- RQ1: How do MLLMs Perform on Implicit Reasoning Tasks? -->
 <section class="section">
@@ -214,6 +219,14 @@
             <li>
               <b>Evaluation:</b> Each model receives a single image and task string, with no extra hints. The model must return a free-form answer; an LLM judge determines correctness.
             </li>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="content has-text-centered">
+                <img src="static/images/main.png" alt="grade-lv" width="80%"/>
+                <p>
+                  The accuracy (%) of six MLLMs under the four categories. Proprietary models demonstrate higher performance. The best result in each question category is in-bold, and the second best is underlined.
+                </p>
+              </div>
+            </div>
             <li>
               <b>Key Findings:</b>
               <ul>
@@ -226,17 +239,6 @@
               <b>Interpretation:</b> Current MLLMs remain vulnerable to hidden, real-world errors that require reading between the lines rather than just task execution.
             </li>
           </ul>
-          <!-- figures -->
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="box m-5">
-              <div class="content has-text-centered">
-                <img src="static/images/main.png" alt="grade-lv" width="80%"/>
-                <p>
-                  The accuracy (%) of six MLLMs under the four categories. Proprietary models demonstrate higher performance. The best result in each question category is in-bold, and the second best is underlined.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -336,113 +338,6 @@
               <p class="mt-3">
                 The accuracy of six MLLMs under the two evaluation settings. Proprietary models demonstrate higher performance as well as larger performance gain in the MCQ setting. While MCQ-style prompts boost GPT-4o's accuracy by ~15%, open-source models gain minimal benefits, highlighting fundamental reasoning gaps.
               </p>
-            
-              <table class="js-sort-table" id="results">
-                <tr>
-                  <td colspan="2"> </td>
-                  <td style="text-align:right;">|</td>
-                  <td colspan="3" style="text-align:center;"><strong>Open-ended</strong></td>
-                  <td style="text-align:right;">|</td>
-                  <td colspan="4" style="text-align:center;"><strong>Multiple-choice</strong></td>
-                </tr>
-                <tr>
-                  <td class="js-sort-number"><strong>#</strong></td>
-                  <td class="js-sort-number"><strong>Model</strong></td>
-                  <td class="js-sort-number"><strong>Source</strong></td>
-                  <td class="js-sort-number"><strong>Web</strong></td>
-                  <td class="js-sort-number"><strong>Office</strong></td>
-                  <td class="js-sort-number"><strong>Poster</strong></td>
-                  <td class="js-sort-number"><strong>Overall</strong></td>
-                  <td class="js-sort-number"><strong>Web</strong></td>
-                  <td class="js-sort-number"><strong>Office</strong></td>
-                  <td class="js-sort-number"><strong>Poster</strong></td>
-                  <td class="js-sort-number"><strong>Overall</strong></td>
-                </tr>
-            
-                <!-- Proprietary Models -->
-                <tr><td colspan="11" style="background-color:#f0f0f0;"><em>Proprietary Models</em></td></tr>
-                <tr>
-                  <td>1</td>
-                  <td><b>o1 (1217)</b></td>
-                  <td><a href="https://openai.com/o1/" class="ext-link" style="font-size: 16px;">Link</a></td>
-                  <td>47.91</td>
-                  <td>59.19</td>
-                  <td>38.73</td>
-                  <td>51.40</td>
-                  <td>47.91</td>
-                  <td>58.52</td>
-                  <td>46.47</td>
-                  <td>52.15</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td><b>GPT-4o (1120)</b></td>
-                  <td><a href="https://openai.com/index/hello-gpt-4o/" class="ext-link" style="font-size: 16px;">Link</a></td>
-                  <td>25.00</td>
-                  <td>42.60</td>
-                  <td>30.98</td>
-                  <td>33.14</td>
-                  <td>37.29</td>
-                  <td>58.96</td>
-                  <td>47.88</td>
-                  <td>47.75</td>
-                </tr>
-            
-                <!-- Open-sourced Models -->
-                <tr><td colspan="11" style="background-color:#f0f0f0;"><em>Open-sourced Models</em></td></tr>
-                <tr>
-                  <td>3</td>
-                  <td><b>Qwen2.5-VL-7B</b></td>
-                  <td><a href="https://github.com/QwenLM/Qwen2.5-VL" class="ext-link" style="font-size: 16px;">Link</a></td>
-                  <td>8.54</td>
-                  <td>29.14</td>
-                  <td>11.97</td>
-                  <td>17.60</td>
-                  <td>14.37</td>
-                  <td>33.18</td>
-                  <td>16.90</td>
-                  <td>22.56</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td><b>LLaVA-NeXT-7B</b></td>
-                  <td><a href="https://github.com/LLaVA-VL/LLaVA-NeXT" class="ext-link" style="font-size: 16px;">Link</a></td>
-                  <td>10.20</td>
-                  <td>21.97</td>
-                  <td>7.04</td>
-                  <td>14.70</td>
-                  <td>11.45</td>
-                  <td>25.33</td>
-                  <td>5.63</td>
-                  <td>16.47</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td><b>InternVL2.5-8B</b></td>
-                  <td><a href="https://github.com/OpenGVLab/InternVL" class="ext-link" style="font-size: 16px;">Link</a></td>
-                  <td>7.70</td>
-                  <td>24.21</td>
-                  <td>4.92</td>
-                  <td>14.23</td>
-                  <td>9.37</td>
-                  <td>23.54</td>
-                  <td>11.97</td>
-                  <td>15.63</td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td><b>Phi-3.5-Vision-4B</b></td>
-                  <td><a href="https://techcommunity.microsoft.com/blog/azure-ai-services-blog/discover-the-new-multi-lingual-high-quality-phi-3-5-slms/4225280" class="ext-link" style="font-size: 16px;">Link</a></td>
-                  <td>6.87</td>
-                  <td>24.43</td>
-                  <td>7.04</td>
-                  <td>14.23</td>
-                  <td>1.66</td>
-                  <td>8.52</td>
-                  <td>0.00</td>
-                  <td>4.30</td>
-                </tr>
-              </table>
             
               <div>
                 <p>🚨 To submit your results to the leaderboard, please send to <a href="mailto:qyan79@ucsc.edu">this email</a> with your result JSON files.</p>
