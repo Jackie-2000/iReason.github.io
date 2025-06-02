@@ -161,7 +161,7 @@
         <h2 class="title is-3">Introduction</h2>
         <div class="content has-text-justified">
           <p>
-            Multimodal Large Language Models (MLLMs) are increasingly deployed in open-ended, real-world environments. Real instructions often involve <b>missing objects, ambiguous references, contradictory facts, or infeasible tasks</b>—situations that require <b>implicit reasoning</b> beyond simple execution. Existing benchmarks mostly assume that the visual input and instruction are perfectly aligned, overlooking cases where flaws must be inferred from context. <b>This paper provides a systematic analysis of how current MLLMs handle implicit reasoning scenarios where the problem is “hidden in plain sight.”
+            Multimodal Large Language Models (MLLMs) are increasingly deployed in open-ended, real-world environments. Real instructions often involve <b>missing objects, ambiguous references, contradictory facts, or infeasible tasks</b>—situations that require <b>implicit reasoning</b> beyond simple execution. Existing benchmarks mostly assume that the visual input and instruction are perfectly aligned, overlooking cases where flaws must be inferred from context. This paper provides a systematic analysis of how current MLLMs handle implicit reasoning scenarios where the problem is “hidden in plain sight.”
           </p>
           
           <b>We organize our analysis around three key research questions (RQs):</b>
@@ -194,83 +194,136 @@
 </div>
 </section>
 
-<!-- DATASET SECTION -->
-
-<section class="hero is-light is-small">
-  <div class="hero-body has-text-centered">
-    <h1 class="title is-1 mathvista">MMIR Benchmark</h1>
-  </div>
-</section>        
+<!-- RQ1: How do MLLMs Perform on Implicit Reasoning Tasks? -->
 <section class="section">
-  <div class="container">
+  <div class="container" style="margin-bottom: 2vh;">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Overview</h2>
+        <h2 class="title is-3">RQ1: How do MLLMs Perform on Implicit Reasoning Tasks?</h2>
         <div class="content has-text-justified">
+          <ul>
+            <li>
+              <b>Setup:</b> We test six state-of-the-art MLLMs on a diagnostic suite spanning four implicit reasoning challenges:
+              <ul>
+                <li><b>Object Absence:</b> The referenced entity is missing.</li>
+                <li><b>Referential Ambiguity:</b> Multiple plausible targets exist.</li>
+                <li><b>Factual Contradiction:</b> Key facts in the scene disagree.</li>
+                <li><b>Goal Infeasibility:</b> The requested plan is physically, temporally, or causally impossible or unsafe.</li>
+              </ul>
+            </li>
+            <li>
+              <b>Evaluation:</b> Each model receives a single image and task string, with no extra hints. The model must return a free-form answer; an LLM judge determines correctness.
+            </li>
+            <li>
+              <b>Key Findings:</b>
+              <ul>
+                <li>Even the strongest models (o3, GPT-4o) detect <b>less than 40%</b> of implicit issues in default settings.</li>
+                <li>Open-source models usually fall below 20% accuracy.</li>
+                <li>Some categories (like Referential Ambiguity) are more tractable, but Goal Infeasibility is extremely challenging for all models.</li>
+              </ul>
+            </li>
+            <li>
+              <b>Interpretation:</b> Current MLLMs remain vulnerable to hidden, real-world errors that require reading between the lines rather than just task execution.
+            </li>
+          </ul>
           <!-- figures -->
           <div id="results-carousel" class="carousel results-carousel">
             <div class="box m-5">
               <div class="content has-text-centered">
-                <img src="static/images/stats.png" alt="Dataset Statistics" width="40%">
-            <p class="has-text-centered"><b>MMIR Statistics</b>. Breakdown of the dataset by artifact category and error type.</p>
-              </div>
-            </div>
-            <div class="box m-5">
-              <div class="content has-text-centered">
-                <img src="static/images/data_filter.png" alt="data filtering" width="80%">
-                <p> MMIR Data filtering process.</p>
+                <img src="static/images/main.png" alt="grade-lv" width="80%"/>
+                <p>
+                  The accuracy (%) of six MLLMs under the four categories. Proprietary models demonstrate higher performance. The best result in each question category is in-bold, and the second best is underlined.
+                </p>
               </div>
             </div>
           </div>
-
-          <p>
-            The MMIR benchmark was meticulously constructed through a four-stage curation pipeline to ensure high-quality, diverse, and challenging test cases. We began by collecting 521 real-world artifacts — including webpages, presentations, and posters — from trusted sources like VisualWebArena and Zenodo. These artifacts were parsed to extract structured metadata, including element types, content, and spatial layouts.
-          </p>
-          <p>
-            To simulate realistic errors, we used advanced multimodal models to propose 2,534 synthetic inconsistencies across five predefined categories. These proposals underwent automated validation to ensure technical feasibility and alignment with error definitions. Approved edits were then programmatically applied to artifacts using tools like Chrome DevTools (for webpages) and Python libraries (for presentations).
-          </p>
-          <p>
-            Finally, human experts rigorously reviewed the modified samples, filtering out unrealistic cases and retaining 534 validated entries that balance complexity and real-world relevance. The resulting dataset spans diverse artifact types and error categories, with carefully designed evaluation prompts for both open-ended and multiple-choice settings. 
-          </p>
-          <div class="column">
-          <h3 class="title is-4 mt-4">Key Features</h3>
-          <ul>
-            <li>534 carefully validated samples</li>
-            <li>Real-world artifacts: Webpages, Slides, Posters</li>
-            <li>Synthetic inconsistency injection</li>
-            <li>Multi-stage verification pipeline</li>
-          </ul>
-          </div>
-          <div class="column">
-            <h3 class="title is-4 mt-4">Evaluation Settings</h3>
-            <ul>
-              <li><i>Open-ended:</i> Models receive the artifact with a fixed prompt <i>Q<sub>open_ended</sub></i> and generate a free-form response that identifies the semantic mismatch.</li>
-              <li><i>Multiple-choice:</i> Models receive the artifact with a combined prompt <i>Q_<sub>MCQ</sub> = (Q<sub>open_ended</sub>, C<sub>i</sub>)</i>. Each candidate in C<sub>i</sub> is a textual description of an element. The model must select, from these options, the element(s) corresponding to the introduced inconsistency.</li>
-            </ul>
-          </div>
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="box m-5">
-              <div class="content has-text-centered">
-                <img src="static/images/qualitative_example.png" alt="stats adversarial" width="84%"/>
-            <p> A Qualitative Example showing a test sample in MMIR tested under the two evaluation settings with ground-truth answer and responses of the six tested models.
-              </div>
-            </div>
-          </div>
-          <p>
-            You can download the dataset on <a href="https://huggingface.co/datasets/rippleripple/MMIR" target="_blank">Hugging Face Dataset</a>.
-          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- RESULTS SECTION -->
-<section class="hero is-light is-small">
-  <div class="hero-body has-text-centered">
-    <h1 class="title is-1 mathvista">Experiments and Analysis</h1>
+<!-- RQ2: Do Models Know More Than They Say? -->
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">RQ2: Do Models Know More Than They Say?</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li>
+              <b>Question:</b> When models fail at implicit reasoning, is it due to a lack of capability—or do they recognize issues internally but fail to express them?
+            </li>
+            <li>
+              <b>Experiments:</b>
+              <ul>
+                <li>
+                  <b>Explicit Prompts:</b> We ask direct yes/no questions (e.g., "Is the referenced object present?") for the same samples.
+                </li>
+                <li>
+                  <b>Chain-of-Thought (CoT):</b> We prompt models to "think step by step," then separately score the internal reasoning trace and final answer.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Key Findings:</b>
+              <ul>
+                <li>With explicit prompts, top models achieve <b>83%+</b> accuracy—demonstrating the necessary skills exist.</li>
+                <li>CoT traces show that proprietary models (o3, GPT-4o) often recognize flaws internally, but omit them in their final answer—indicating suppression due to alignment or obedience pressure.</li>
+                <li>Open-source models generally fail both internally and externally, showing true reasoning limitations.</li>
+              </ul>
+            </li>
+            <li>
+              <b>Interpretation:</b> There is a critical gap between internal competence and actual model behavior. For strong models, failures often reflect “behavioral alignment” rather than lack of reasoning.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- RQ3: Can Inference-Time Interventions Recover Reasoning? -->
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">RQ3: Can Inference-Time Interventions Recover Reasoning?</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li>
+              <b>Question:</b> If the models already “know” the issue, can we unlock their suppressed reasoning with simple interventions—without retraining?
+            </li>
+            <li>
+              <b>Interventions Tested:</b>
+              <ul>
+                <li>
+                  <b>System Persona Prompting:</b> Adding a prompt that encourages the model to prioritize caution, honesty, and factual correctness over obedience.
+                </li>
+                <li>
+                  <b>Interactive Clarification:</b> Allowing—or requiring—the model to ask the user a clarifying question before answering.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Key Findings:</b>
+              <ul>
+                <li>System persona prompts yield modest performance gains, especially for strong models.</li>
+                <li>Allowing models to ask clarifying questions significantly boosts performance for all models, but especially for open-source ones.</li>
+                <li>Requiring a clarifying question (forcing the model to ask) leads to <b>over 94% accuracy</b> for o3 and GPT-4o—fully recovering their suppressed competence.</li>
+              </ul>
+            </li>
+            <li>
+              <b>Interpretation:</b> Simple prompt-level interventions are highly effective for bridging the gap between what models know and what they say—pointing to actionable ways to increase trust and safety in real-world applications.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section class="section">
   <div class="container">
     <div class="columns is-centered has-text-centered">
