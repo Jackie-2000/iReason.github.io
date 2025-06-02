@@ -152,6 +152,21 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Introduction</h2>
         <div class="content has-text-justified">
+          <!-- table: examples and stats -->
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/examples.png" alt="Examples" width="50%">
+                <p class="has-text-centered">There are four categories under the implicit reasoning scenarios, posing diverse challenges.</p>
+              </div>
+            </div>
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/stats.png" alt="Stats" width="80%">
+                <p> iReason Statistics. Breakdown of the testbed by category. Please see paper Appendix for detailed data curation.</p>
+              </div>
+            </div>
+          </div>
           <p>
             Multimodal Large Language Models (MLLMs) are increasingly deployed in open-ended, real-world environments. Real instructions often involve <b>missing objects, ambiguous references, contradictory facts, or infeasible tasks</b>—situations that require <b>implicit reasoning</b> beyond simple execution. Existing benchmarks mostly assume that the visual input and instruction are perfectly aligned, overlooking cases where flaws must be inferred from context. This paper provides a systematic analysis of how current MLLMs handle implicit reasoning scenarios where the problem is “hidden in plain sight.”
           </p>
@@ -172,21 +187,6 @@
           <p>
             We curate a diagnostic suite covering four real-world failure modes and evaluate six leading MLLMs, including o3 and GPT-4o, on 643 diverse samples. 
           </p>
-          <!-- table: examples and stats -->
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="box m-5">
-              <div class="content has-text-centered">
-                <img src="static/images/examples.png" alt="Examples" width="50%">
-                <p class="has-text-centered">There are four categories under the implicit reasoning scenarios, posing diverse challenges.</p>
-              </div>
-            </div>
-            <div class="box m-5">
-              <div class="content has-text-centered">
-                <img src="static/images/stats.png" alt="Stats" width="80%">
-                <p> iReason Statistics. Breakdown of the testbed by category. Please see paper Appendix for detailed data curation.</p>
-              </div>
-            </div>
-          </div>
          
           <b>Main Findings:</b>
           <ul>
