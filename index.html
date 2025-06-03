@@ -78,7 +78,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/xxx"
+                <a href="https://arxiv.org/abs/2506.00258"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -87,7 +87,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/xxx"
+                <a href="https://arxiv.org/abs/2506.00258"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -134,7 +134,7 @@
         <!-- <div id="results-carousel" class="carousel results-carousel"> -->
           <!-- <div class="box m-5"> -->
             <!-- <div class="content has-text-centered"> -->
-              <img src="static/images/teaser.png" alt="teaser" width="50%"/>
+              <img src="static/images/teaser.png" alt="teaser" width="40%"/>
               <p> 
                 Even when the instruction appears valid, it may silently conflict with the visual context. Implicit reasoning requires models to detect whats missing, ambiguous, contradictory, or infeasible—without being told.
               </p>
@@ -371,6 +371,7 @@
                 <li>
                   <b>Interactive Clarification:</b> Allowing—or requiring—the model to ask the user a clarifying question before answering.
                 </li>
+                <b>IC-Free setting:</b> the model is free to either ask a clarifying question or provide a direct answer.
                 <div style="
                 border: 2px solid #aaa; 
                 border-radius: 8px; 
@@ -401,7 +402,34 @@
                   
                   You may only choose one action—either output a <question> or an <answer>, but not both.
                 </div>
-              </div>
+                </div>
+                <b>IC-Forced setting:</b> the model is forced to begin with a clarification question, regardless of whether it perceives uncertainty.
+                <div style="
+                border: 2px solid #aaa; 
+                border-radius: 8px; 
+                overflow: hidden; 
+                max-width: 700px; 
+                margin: 2rem auto; 
+                font-family: serif;
+              ">
+                <div style="
+                  background-color: #888; 
+                  color: white; 
+                  font-weight: bold; 
+                  padding: 0.5rem 1rem; 
+                  font-size: 1.1rem;
+                ">
+                  Free Interactive Clarification (IC-Free)
+                </div>
+                <div style="
+                  background-color: #f8f8f8; 
+                  padding: 1rem; 
+                  font-size: 1rem; 
+                  line-height: 1.6;
+                ">
+                  You must first ask the user a clarifying question to complete the task accurately before you proceed. Output your question inside <question>...</question> tags.
+                </div>
+                </div>
               </ul>
             </li>
             <li>
@@ -427,14 +455,14 @@
   <div class="container is-max-desktop content">
     <h2 class="title is-3 has-text-centered">BibTeX</h2>
     <pre><code>
-      @misc{yan2025multimodalinconsistencyreasoningmmir,
-        title={Multimodal Inconsistency Reasoning (MMIR): A New Benchmark for Multimodal Reasoning Models}, 
-        author={Qianqi Yan and Yue Fan and Hongquan Li and Shan Jiang and Yang Zhao and Xinze Guan and Ching-Chen Kuo and Xin Eric Wang},
+      @misc{yan2025hiddenplainsightprobing,
+        title={Hidden in Plain Sight: Probing Implicit Reasoning in Multimodal Language Models}, 
+        author={Qianqi Yan and Hongquan Li and Shan Jiang and Yang Zhao and Xinze Guan and Ching-Chen Kuo and Xin Eric Wang},
         year={2025},
-        eprint={2502.16033},
+        eprint={2506.00258},
         archivePrefix={arXiv},
         primaryClass={cs.AI},
-        url={https://arxiv.org/abs/2502.16033}, 
+        url={https://arxiv.org/abs/2506.00258}, 
   }
     </code></pre>
   </div>
